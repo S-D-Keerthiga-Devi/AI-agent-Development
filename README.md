@@ -40,17 +40,22 @@ A smart finance assistant that uses large language models and real-time tools to
 ```bash
 git clone https://github.com/S-D-Keerthiga-Devi/AI-agent-Development.git
 cd AI-agent-Development
-
+```
 
 ### 2. Create .env File
+```bash
 Create a .env file in the root with your API keys:
-
 GOOGLE_API_KEY=your_google_api_key
 GROQ_API_KEY=your_groq_api_key
+```
 
 ### 3. Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
 ### 4. Run the App
+```bash
 python app.py
 Then open http://127.0.0.1:5000 in your browser.
+```
