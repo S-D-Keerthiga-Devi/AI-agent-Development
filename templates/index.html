@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finance Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+
+  <div class="w-full max-w-2xl bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-2xl font-bold mb-4 text-center">Finance Chatbot</h2>
+
+    <!-- Chatbox -->
+    <div id="chatbox" class="h-96 overflow-y-auto border p-3 mb-4 bg-gray-50 rounded space-y-4"></div>
+
+    <!-- Input -->
+    <div class="flex">
+      <input id="userInput" type="text" class="w-full border p-2 rounded-l focus:outline-none" placeholder="Ask me about stocks..." />
+      <button onclick="sendMessage()" class="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600">Send</button>
+    </div>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const inputField = document.getElementById("userInput");
+      const chatbox = document.getElementById("chatbox");
+      const userMessage = inputField.value.trim();
+
+      if (userMessage === "") return;
+
+      // Display user's message
+      const userBubble = document.createElement("div");
+      userBubble.className = "text-right";
+      userBubble.innerHTML = `<span class="inline-block bg-blue-500 text-white p-2 rounded-lg">${userMessage}</span>`;
+      chatbox.appendChild(userBubble);
+      inputField.value = "";
+
+      try {
+        const response = await fetch("/ask", {
+          method: "POST",
+          body: JSON.stringify({ message: userMessage }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await response.json();
+
+        const botBubble = document.createElement("div");
+        botBubble.className = "text-left";
+
+        if (data.error) {
+          botBubble.innerHTML = `<span class="inline-block bg-red-500 text-white p-2 rounded-lg">Error: ${data.error}</span>`;
+        } else {
+          botBubble.innerHTML = `<div class="bg-gray-200 p-3 rounded-lg prose max-w-full">${data.response}</div>`;
+        }
+
+        chatbox.appendChild(botBubble);
+      } catch (error) {
+        const errorBubble = document.createElement("div");
+        errorBubble.className = "text-left";
+        errorBubble.innerHTML = `<span class="inline-block bg-red-500 text-white p-2 rounded-lg">Error: ${error.message}</span>`;
+        chatbox.appendChild(errorBubble);
+      }
+
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>

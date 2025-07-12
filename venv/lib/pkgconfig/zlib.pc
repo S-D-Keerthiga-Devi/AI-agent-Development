@@ -1,0 +1,13 @@
+prefix=/Users/keerthiga/Agentic AI (Agno)/venv
+exec_prefix=/Users/keerthiga/Agentic AI (Agno)/venv
+libdir=/Users/keerthiga/Agentic AI (Agno)/venv/lib
+sharedlibdir=/Users/keerthiga/Agentic AI (Agno)/venv/lib
+includedir=/Users/keerthiga/Agentic AI (Agno)/venv/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

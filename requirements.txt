@@ -1,0 +1,13 @@
+agno
+python-dotenv
+duckduckgo-search
+pypdf
+lancedb
+streamlit
+pandas
+tantivy
+yfinance
+google-generativeai
+groq
+google-genai
+flask
